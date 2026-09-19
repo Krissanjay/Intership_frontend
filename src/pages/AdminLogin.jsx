@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../css/AdminLogin.css";
 
 function AdminLogin() {
     const navigate = useNavigate();
@@ -45,71 +46,49 @@ function AdminLogin() {
     };
 
     return (
-        <div
-            style={{
-                width: "400px",
-                margin: "100px auto",
-                padding: "30px",
-                border: "1px solid #ddd",
-                borderRadius: "10px"
-            }}
-        >
-            <h1>Admin Login</h1>
+        <div className="admin-login-container">
+            <div className="admin-login-card">
+                <h1 className="admin-login-title">Admin Login</h1>
 
-            {error && (
-                <p style={{ color: "red" }}>
-                    {error}
-                </p>
-            )}
+                {error && (
+                    <div className="admin-error-message">
+                        {error}
+                    </div>
+                )}
 
-            <form onSubmit={handleLogin}>
+                <form onSubmit={handleLogin}>
+                    <div className="admin-form-group">
+                        <label className="admin-form-label">Email Address</label>
+                        <input
+                            type="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="Enter admin email"
+                            required
+                            className="admin-form-input"
+                        />
+                    </div>
 
-                <div style={{ marginBottom: "15px" }}>
-                    <label>Email</label>
+                    <div className="admin-form-group">
+                        <label className="admin-form-label">Password</label>
+                        <input
+                            type="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="Enter admin password"
+                            required
+                            className="admin-form-input"
+                        />
+                    </div>
 
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Enter admin email"
-                        required
-                        style={{
-                            width: "100%",
-                            padding: "10px",
-                            marginTop: "5px"
-                        }}
-                    />
-                </div>
-
-                <div style={{ marginBottom: "15px" }}>
-                    <label>Password</label>
-
-                    <input
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                        placeholder="Enter admin password"
-                        required
-                        style={{
-                            width: "100%",
-                            padding: "10px",
-                            marginTop: "5px"
-                        }}
-                    />
-                </div>
-
-                <button
-                    type="submit"
-                    style={{
-                        width: "100%",
-                        padding: "12px",
-                        cursor: "pointer"
-                    }}
-                >
-                    Login as Admin
-                </button>
-
-            </form>
+                    <button
+                        type="submit"
+                        className="admin-login-button"
+                    >
+                        Login as Admin
+                    </button>
+                </form>
+            </div>
         </div>
     );
 }
