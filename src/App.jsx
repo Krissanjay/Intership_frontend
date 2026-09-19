@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 import Profile from "./pages/Profile";
+import Home from "./pages/Home";
 import Resume from "./pages/Resume";
 import StudentDashboard from "./pages/StudentDashboard";
 import Recommendations from "./pages/Recommendations";
@@ -76,9 +77,9 @@ function App() {
                 <Route
                     path="/"
                     element={
-                        <PrivateRoute>
-                            <StudentDashboard />
-                        </PrivateRoute>
+                        <PublicRoute>
+                            <Home />
+                        </PublicRoute>
                     }
                 />
 
