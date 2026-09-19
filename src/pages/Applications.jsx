@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentNavbar from "../components/StudentNavbar";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/StudentMain.css";
 
 function Applications() {
@@ -73,7 +74,15 @@ function Applications() {
     };
 
     if (loading) {
-        return <h2>Loading applications...</h2>;
+        return (
+            <div className="student-page">
+                <StudentNavbar />
+                <div className="student-content">
+                    <h1 className="page-title">My Applications</h1>
+                    <SkeletonLoader type="list" count={4} />
+                </div>
+            </div>
+        );
     }
 
     return (

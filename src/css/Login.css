@@ -129,3 +129,9 @@
     color: #764ba2;
     text-decoration: underline;
 }
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 25px 20px;
+    }
+}

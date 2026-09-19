@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentNavbar from "../components/StudentNavbar";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/StudentMain.css";
 
 function StudentDashboard() {

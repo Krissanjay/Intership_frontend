@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentNavbar from "../components/StudentNavbar";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/StudentMain.css";
 
 function Profile() {
@@ -87,12 +88,13 @@ function Profile() {
 
     if (loading) {
         return (
-            <>
+            <div className="student-page">
                 <StudentNavbar />
-                <div style={{ padding: "30px" }}>
-                    <h2>Loading profile...</h2>
+                <div className="student-content">
+                    <h1 className="page-title">Student Profile</h1>
+                    <SkeletonLoader type="form" />
                 </div>
-            </>
+            </div>
         );
     }
 

@@ -92,7 +92,7 @@
 
 .form-input {
     width: 100%;
-    padding: 8px 15px;
+    padding: 12px 15px;
     border: 2px solid #e0e5f2;
     border-radius: 10px;
     font-family: inherit;
@@ -205,3 +205,21 @@ hr {
 .status-interview { background: #bee3f8; color: #2b6cb0; }
 .status-selected { background: #c6f6d5; color: #22543d; }
 .status-rejected { background: #fed7d7; color: #9b2c2c; }
+
+@media (max-width: 768px) {
+    .student-content {
+        padding: 15px;
+    }
+    .page-title {
+        font-size: 24px;
+    }
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+    }
+    .profile-card, .item-card, .app-card {
+        padding: 20px;
+    }
+    .stat-card {
+        padding: 20px;
+    }
+}

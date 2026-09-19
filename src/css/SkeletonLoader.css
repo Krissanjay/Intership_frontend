@@ -1,0 +1,100 @@
+.skeleton-wrapper {
+    width: 100%;
+}
+
+.skeleton-item {
+    background: #e0e5f2;
+    background: linear-gradient(90deg, #e0e5f2 0px, #f4f7fe 50%, #e0e5f2 100%);
+    background-size: 400% 100%;
+    animation: shimmer 1.5s infinite linear;
+    border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+@keyframes shimmer {
+    0% {
+        background-position: -200% 0;
+    }
+    100% {
+        background-position: 200% 0;
+    }
+}
+
+/* Pre-defined Skeleton Layouts */
+
+/* Card Layout */
+.skeleton-card {
+    padding: 25px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.skeleton-card .skeleton-title {
+    height: 20px;
+    width: 40%;
+    margin-bottom: 15px;
+}
+
+.skeleton-card .skeleton-text {
+    height: 15px;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.skeleton-card .skeleton-text.short {
+    width: 60%;
+}
+
+/* Form Layout */
+.skeleton-form {
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.skeleton-form .skeleton-label {
+    height: 14px;
+    width: 25%;
+    margin-bottom: 8px;
+}
+
+.skeleton-form .skeleton-input {
+    height: 40px;
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.skeleton-form .skeleton-button {
+    height: 45px;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* List Layout (Tables, Applications) */
+.skeleton-list-item {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.skeleton-list-item .skeleton-text-group {
+    flex: 1;
+}
+
+.skeleton-list-item .skeleton-badge {
+    height: 25px;
+    width: 80px;
+    border-radius: 15px;
+}

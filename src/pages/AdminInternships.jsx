@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/AdminInternships.css";
 
 const AdminInternships = () => {
@@ -366,20 +367,15 @@ const AdminInternships = () => {
     // ============================================
 
     if (loading) {
-
         return (
             <div className="admin-internships-page">
-
-                <div className="admin-loading">
-
-                    <div className="loading-spinner"></div>
-
-                    <p>
-                        Loading internships...
-                    </p>
-
+                <div className="admin-header">
+                    <div>
+                        <h1>Manage Internships</h1>
+                        <p>Loading internships...</p>
+                    </div>
                 </div>
-
+                <SkeletonLoader type="list" count={6} />
             </div>
         );
     }

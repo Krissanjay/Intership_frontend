@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import SkeletonLoader from "../components/SkeletonLoader";
+import "../css/AdminInternships.css";
 
 function AdminApplicationDetails() {
 
@@ -116,16 +118,16 @@ function AdminApplicationDetails() {
     };
 
     if (loading) {
-
         return (
-            <div style={{
-                padding: "40px",
-                textAlign: "center"
-            }}>
-                <h2>Loading application details...</h2>
+            <div className="admin-internships-page">
+                <div className="admin-header">
+                    <div>
+                        <h1>Application Details</h1>
+                    </div>
+                </div>
+                <SkeletonLoader type="form" />
             </div>
         );
-
     }
 
     if (error) {

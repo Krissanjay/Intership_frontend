@@ -1,6 +1,6 @@
-
 import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/InternshipForm.css";
 
 function EditInternship() {
@@ -155,9 +155,11 @@ function EditInternship() {
 
     if (loading) {
         return (
-            <div className="internship-form-loading">
-                <div className="loading-spinner"></div>
-                <p>Loading internship...</p>
+            <div className="internship-form-page">
+                <div className="form-header">
+                    <h1>Edit Internship</h1>
+                </div>
+                <SkeletonLoader type="form" />
             </div>
         );
     }

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentNavbar from "../components/StudentNavbar";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/StudentMain.css";
 
 function Recommendations() {
@@ -92,7 +93,15 @@ function Recommendations() {
     };
 
     if (loading) {
-        return <h2>Loading recommendations...</h2>;
+        return (
+            <div className="student-page">
+                <StudentNavbar />
+                <div className="student-content">
+                    <h1 className="page-title">Internship Recommendations</h1>
+                    <SkeletonLoader type="list" count={5} />
+                </div>
+            </div>
+        );
     }
 
     if (error) {

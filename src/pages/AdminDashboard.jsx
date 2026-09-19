@@ -1,6 +1,7 @@
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/AdminDashboard.css";
 
 function AdminDashboard() {
@@ -167,9 +168,17 @@ function AdminDashboard() {
 
     if (loading) {
         return (
-            <div className="admin-loading">
-                <div className="loading-spinner"></div>
-                <p>Loading admin dashboard...</p>
+            <div className="admin-dashboard">
+                <div className="admin-header">
+                    <div>
+                        <h1>Admin Dashboard</h1>
+                        <p>Loading statistics...</p>
+                    </div>
+                </div>
+                <SkeletonLoader type="card" count={4} />
+                <div style={{ marginTop: "30px" }}>
+                    <SkeletonLoader type="list" count={3} />
+                </div>
             </div>
         );
     }
