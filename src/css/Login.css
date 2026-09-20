@@ -1,20 +1,24 @@
 /* d:\rahul\frontend\src\css\Login.css */
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
-.login-container {
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100vh;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    font-family: 'Inter', sans-serif;
     padding: 20px;
     box-sizing: border-box;
+    backdrop-filter: blur(5px);
 }
 
 .login-card {
     background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
     border-radius: 20px;
     padding: 40px;
     width: 100%;
@@ -23,6 +27,23 @@
     text-align: center;
     animation: fadeIn 0.5s ease-out;
     box-sizing: border-box;
+    position: relative;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #666;
+    transition: color 0.2s ease;
+}
+
+.close-btn:hover {
+    color: #333;
 }
 
 @keyframes fadeIn {

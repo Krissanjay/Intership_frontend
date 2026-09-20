@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/AdminLogin.css";
 
-function AdminLogin() {
+function AdminLogin({ onClose }) {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -46,8 +46,9 @@ function AdminLogin() {
     };
 
     return (
-        <div className="admin-login-container">
-            <div className="admin-login-card">
+        <div className="admin-modal-overlay" onClick={onClose}>
+            <div className="admin-login-card" onClick={(e) => e.stopPropagation()}>
+                <button className="admin-close-btn" onClick={onClose}>&times;</button>
                 <h1 className="admin-login-title">Admin Login</h1>
 
                 {error && (
@@ -89,14 +90,6 @@ function AdminLogin() {
                     </button>
                 </form>
 
-                <button 
-                    type="button" 
-                    className="admin-login-button" 
-                    onClick={() => navigate("/")}
-                    style={{ marginTop: '15px', backgroundColor: '#6c757d' }}
-                >
-                    Back to Home
-                </button>
             </div>
         </div>
     );

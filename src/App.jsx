@@ -20,7 +20,7 @@ const PrivateRoute = ({ children }) => {
 
     const token = localStorage.getItem("token");
 
-    return token ? children : <Navigate to="/login" />;
+    return token ? children : <Navigate to="/" />;
 };
 
 const PublicRoute = ({ children }) => {
@@ -34,7 +34,7 @@ const AdminPrivateRoute = ({ children }) => {
 
     const adminToken = localStorage.getItem("adminToken");
 
-    return adminToken ? children : <Navigate to="/admin" />;
+    return adminToken ? children : <Navigate to="/" />;
 };
 
 const AdminPublicRoute = ({ children }) => {
@@ -52,15 +52,6 @@ function App() {
             <Routes>
 
                 {/* Public Routes */}
-
-                <Route
-                    path="/login"
-                    element={
-                        <PublicRoute>
-                            <Login />
-                        </PublicRoute>
-                    }
-                />
 
                 <Route
                     path="/register"
@@ -139,15 +130,6 @@ function App() {
 
 
                 {/* Admin Routes */}
-
-                <Route
-                    path="/admin"
-                    element={
-                        <AdminPublicRoute>
-                            <AdminLogin />
-                        </AdminPublicRoute>
-                    }
-                />
 
                 <Route
                     path="/admin-dashboard"

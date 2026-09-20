@@ -1,15 +1,19 @@
-.admin-login-container {
-    min-height: 100vh;
+.admin-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(-45deg, #0f2027, #203a43, #2c5364, #0b131e);
-    background-size: 400% 400%;
-    animation: gradientBG 15s ease infinite;
+    padding: 20px;
+    box-sizing: border-box;
+    backdrop-filter: blur(5px);
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: #ffffff;
-    padding: 20px;
-    padding-bottom: 8vh; /* Shifts the entire card slightly upward */
 }
 
 @keyframes gradientBG {
@@ -25,17 +29,32 @@
 }
 
 .admin-login-card {
-    background: rgba(255, 255, 255, 0.05);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background: rgba(15, 32, 39, 0.95);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 20px;
-    padding: 40px 40px 50px; /* Reduced top padding to move text up */
+    padding: 40px 40px 50px;
     width: 100%;
     max-width: 420px;
     box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
     transform: translateY(0);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.admin-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #b0c4de;
+    transition: color 0.2s ease;
+}
+
+.admin-close-btn:hover {
+    color: #ffffff;
 }
 
 .admin-login-card:hover {

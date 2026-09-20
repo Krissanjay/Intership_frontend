@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../css/Login.css";
-
-function Login() {
+function Login({ onClose }) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         email: "",
@@ -57,8 +56,9 @@ function Login() {
     };
 
     return (
-        <div className="login-container">
-            <div className="login-card">
+        <div className="modal-overlay" onClick={onClose}>
+            <div className="login-card" onClick={(e) => e.stopPropagation()}>
+                <button className="close-btn" onClick={onClose}>&times;</button>
                 <h1 className="login-title">Student Login</h1>
 
                 <form onSubmit={handleSubmit} className="login-form">
@@ -101,14 +101,6 @@ function Login() {
                     Don't have an account? <Link to="/register" className="register-link">Register here</Link>
                 </p>
 
-                <button 
-                    type="button" 
-                    className="login-button" 
-                    onClick={() => navigate("/")}
-                    style={{ marginTop: '15px', backgroundColor: '#6c757d' }}
-                >
-                    Back to Home
-                </button>
             </div>
         </div>
     );

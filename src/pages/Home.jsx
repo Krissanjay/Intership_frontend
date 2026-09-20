@@ -1,7 +1,20 @@
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import "../css/Home.css";
+import Login from "./Login";
+import AdminLogin from "./AdminLogin";
 
 function Home() {
+    const location = useLocation();
+    const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+    const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
+
+    useEffect(() => {
+        if (location.state?.openLogin) {
+            setIsLoginModalOpen(true);
+        }
+    }, [location.state]);
+
     return (
         <div className="home-container">
             <div className="home-content">
@@ -15,21 +28,24 @@ function Home() {
                         <div className="feature-icon">🚀</div>
                         <h3>For Students</h3>
                         <p>Discover internships tailored to your skills, build your resume, and track applications easily.</p>
-                        <Link to="/login" className="home-btn student-btn">
+                        <button onClick={() => setIsLoginModalOpen(true)} className="home-btn student-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem', width: '100%', boxSizing: 'border-box' }}>
                             Student Login
-                        </Link>
+                        </button>
                     </div>
 
                     <div className="feature-card">
                         <div className="feature-icon">💼</div>
                         <h3>For Administrators</h3>
                         <p>Post new opportunities, manage student profiles, and review applications efficiently.</p>
-                        <Link to="/admin" className="home-btn admin-btn">
+                        <button onClick={() => setIsAdminModalOpen(true)} className="home-btn admin-btn" style={{ border: 'none', cursor: 'pointer', fontFamily: 'inherit', fontSize: '1rem', width: '100%', boxSizing: 'border-box' }}>
                             Admin Login
-                        </Link>
+                        </button>
                     </div>
                 </div>
             </div>
+            
+            {isLoginModalOpen && <Login onClose={() => setIsLoginModalOpen(false)} />}
+            {isAdminModalOpen && <AdminLogin onClose={() => setIsAdminModalOpen(false)} />}
         </div>
     );
 }

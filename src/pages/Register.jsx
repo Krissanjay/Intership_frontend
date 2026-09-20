@@ -115,7 +115,7 @@ function Register() {
                 )}
                 
                 <p style={{ marginTop: "20px", color: "#666", fontSize: "14px" }}>
-                    Already have an account? <Link to="/login" style={{ color: "#43e97b", textDecoration: "none", fontWeight: "600" }}>Login here</Link>
+                    Already have an account? <Link to="/" state={{ openLogin: true }} style={{ color: "#43e97b", textDecoration: "none", fontWeight: "600" }}>Login here</Link>
                 </p>
             </div>
         </div>
