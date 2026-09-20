@@ -192,7 +192,7 @@ function StudentNavbar() {
         localStorage.removeItem("token");
         localStorage.removeItem("student");
 
-        navigate("/login");
+        navigate("/");
     };
 
 
@@ -285,6 +285,10 @@ function StudentNavbar() {
 
                 <NavLink to="/dashboard" className={({ isActive }) => isActive ? "active" : ""}>
                     Dashboard
+                </NavLink>
+
+                <NavLink to="/internships" className={({ isActive }) => isActive ? "active" : ""}>
+                    Internships
                 </NavLink>
 
                 <NavLink to="/recommendations" className={({ isActive }) => isActive ? "active" : ""}>

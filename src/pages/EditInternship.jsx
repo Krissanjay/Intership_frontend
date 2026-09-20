@@ -28,7 +28,7 @@ function EditInternship() {
 
     useEffect(() => {
         if (!token) {
-            navigate("/admin");
+            navigate("/");
             return;
         }
 

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "../css/Login.css";
+import LoadingOverlay from "../components/LoadingOverlay";
 function Login({ onClose }) {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
@@ -9,6 +10,7 @@ function Login({ onClose }) {
     });
 
     const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -19,6 +21,8 @@ function Login({ onClose }) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setMessage("");
 
         try {
             const response = await fetch(
@@ -50,8 +54,10 @@ function Login({ onClose }) {
             }
 
         } catch (error) {
-            console.error(error);
-            setMessage("Unable to connect to server");
+            setMessage("Unable to connect to the backend.");
+            console.error("Login Error:", error);
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -102,6 +108,7 @@ function Login({ onClose }) {
                 </p>
 
             </div>
+            {isLoading && <LoadingOverlay message="Logging in..." />}
         </div>
     );
 }

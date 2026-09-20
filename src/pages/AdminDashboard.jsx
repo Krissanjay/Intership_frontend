@@ -18,7 +18,7 @@ function AdminDashboard() {
 
     useEffect(() => {
         if (!token) {
-            navigate("/admin");
+            navigate("/");
             return;
         }
 
@@ -28,7 +28,7 @@ function AdminDashboard() {
 
     const logout = () => {
         localStorage.removeItem("adminToken");
-        navigate("/admin");
+        navigate("/");
     };
 
     const fetchStats = async () => {

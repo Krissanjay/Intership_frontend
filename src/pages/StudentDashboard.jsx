@@ -40,7 +40,16 @@ function StudentDashboard() {
     };
 
     if (loading) {
-        return <h2>Loading dashboard...</h2>;
+        return (
+            <div className="student-page">
+                <StudentNavbar />
+                <div className="student-content">
+                    <h1 className="page-title">Student Dashboard</h1>
+                    <SkeletonLoader type="grid" count={4} />
+                    <SkeletonLoader type="list" count={3} />
+                </div>
+            </div>
+        );
     }
 
     if (error) {

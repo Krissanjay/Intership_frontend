@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import "../css/Register.css";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 function Register() {
 
@@ -12,6 +13,7 @@ function Register() {
     });
 
     const [message, setMessage] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleChange = (e) => {
         setFormData({
@@ -21,8 +23,9 @@ function Register() {
     };
 
     const handleSubmit = async (e) => {
-
         e.preventDefault();
+        setMessage("");
+        setIsLoading(true);
 
         try {
 
@@ -46,6 +49,8 @@ function Register() {
             console.error(error);
 
             setMessage("Unable to connect to server");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -118,6 +123,7 @@ function Register() {
                     Already have an account? <Link to="/" state={{ openLogin: true }} style={{ color: "#43e97b", textDecoration: "none", fontWeight: "600" }}>Login here</Link>
                 </p>
             </div>
+            {isLoading && <LoadingOverlay message="Registering account..." />}
         </div>
     );
 }

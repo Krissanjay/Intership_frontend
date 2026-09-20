@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import StudentNavbar from "../components/StudentNavbar";
+import SkeletonLoader from "../components/SkeletonLoader";
 import "../css/StudentMain.css";
 
 function Resume() {
@@ -8,6 +9,7 @@ function Resume() {
     const [skills, setSkills] = useState([]);
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
+    const [isFetching, setIsFetching] = useState(true);
 
     const token = localStorage.getItem("token");
 
@@ -54,8 +56,12 @@ function Resume() {
     };
 
     useEffect(() => {
-        loadResume();
-        loadSkills();
+        const fetchAll = async () => {
+            setIsFetching(true);
+            await Promise.all([loadResume(), loadSkills()]);
+            setIsFetching(false);
+        };
+        fetchAll();
     }, []);
 
     const handleUpload = async (e) => {
@@ -101,6 +107,18 @@ function Resume() {
 
         setLoading(false);
     };
+
+    if (isFetching) {
+        return (
+            <div className="student-page">
+                <StudentNavbar />
+                <div className="student-content">
+                    <h1 className="page-title">Resume</h1>
+                    <SkeletonLoader type="list" count={3} />
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div className="student-page">

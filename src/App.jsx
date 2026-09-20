@@ -15,6 +15,9 @@ import AddInternship from "./pages/AddInternship";
 import AdminApplicationDetails from "./pages/AdminApplicationDetails";
 import AdminInternships from "./pages/AdminInternships";
 import EditInternship from "./pages/EditInternship";
+import AvailableInternships from "./pages/AvailableInternships";
+import AvailableInternshipDetails from "./pages/AvailableInternshipDetails";
+import RecommendationDetails from "./pages/RecommendationDetails";
 
 const PrivateRoute = ({ children }) => {
 
@@ -111,10 +114,37 @@ function App() {
                 />
 
                 <Route
+                    path="/internships"
+                    element={
+                        <PrivateRoute>
+                            <AvailableInternships />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/internships/:id"
+                    element={
+                        <PrivateRoute>
+                            <AvailableInternshipDetails />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
                     path="/recommendations"
                     element={
                         <PrivateRoute>
                             <Recommendations />
+                        </PrivateRoute>
+                    }
+                />
+
+                <Route
+                    path="/recommendations/:id"
+                    element={
+                        <PrivateRoute>
+                            <RecommendationDetails />
                         </PrivateRoute>
                     }
                 />

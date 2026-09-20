@@ -29,7 +29,7 @@ const AdminInternships = () => {
             const token = localStorage.getItem("adminToken");
 
             if (!token) {
-                navigate("/admin");
+                navigate("/");
                 return;
             }
 
@@ -49,7 +49,7 @@ const AdminInternships = () => {
 
                 if (response.status === 401) {
                     localStorage.removeItem("adminToken");
-                    navigate("/admin");
+                    navigate("/");
                     return;
                 }
 
@@ -131,7 +131,7 @@ const AdminInternships = () => {
 
                 if (response.status === 401) {
                     localStorage.removeItem("adminToken");
-                    navigate("/admin");
+                    navigate("/");
                     return;
                 }
 
@@ -235,7 +235,7 @@ const AdminInternships = () => {
 
                 if (response.status === 401) {
                     localStorage.removeItem("adminToken");
-                    navigate("/admin");
+                    navigate("/");
                     return;
                 }
 
@@ -288,7 +288,7 @@ const AdminInternships = () => {
 
         localStorage.removeItem("adminToken");
 
-        navigate("/admin");
+        navigate("/");
     };
 
     // ============================================

@@ -1,16 +1,19 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../css/AdminLogin.css";
+import LoadingOverlay from "../components/LoadingOverlay";
 
 function AdminLogin({ onClose }) {
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [error, setError] = useState("");
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
         setError("");
+        setIsLoading(true);
 
         try {
             const response = await fetch(
@@ -40,8 +43,10 @@ function AdminLogin({ onClose }) {
                 setError(data.message || "Invalid admin credentials");
             }
 
-        } catch (error) {
-            setError("Unable to connect to backend");
+        } catch (err) {
+            setError("Unable to connect to the backend.");
+        } finally {
+            setIsLoading(false);
         }
     };
 
@@ -91,6 +96,7 @@ function AdminLogin({ onClose }) {
                 </form>
 
             </div>
+            {isLoading && <LoadingOverlay message="Logging in as Admin..." />}
         </div>
     );
 }
