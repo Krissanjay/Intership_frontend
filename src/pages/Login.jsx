@@ -100,6 +100,15 @@ function Login() {
                 <p className="register-text">
                     Don't have an account? <Link to="/register" className="register-link">Register here</Link>
                 </p>
+
+                <button 
+                    type="button" 
+                    className="login-button" 
+                    onClick={() => navigate("/")}
+                    style={{ marginTop: '15px', backgroundColor: '#6c757d' }}
+                >
+                    Back to Home
+                </button>
             </div>
         </div>
     );

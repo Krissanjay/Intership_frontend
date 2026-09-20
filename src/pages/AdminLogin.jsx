@@ -88,6 +88,15 @@ function AdminLogin() {
                         Login as Admin
                     </button>
                 </form>
+
+                <button 
+                    type="button" 
+                    className="admin-login-button" 
+                    onClick={() => navigate("/")}
+                    style={{ marginTop: '15px', backgroundColor: '#6c757d' }}
+                >
+                    Back to Home
+                </button>
             </div>
         </div>
     );
