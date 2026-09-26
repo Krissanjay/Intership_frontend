@@ -112,6 +112,30 @@ function Skills() {
         const token = localStorage.getItem("token");
 
         try {
+            // First, silently fetch their existing custom skills so we don't overwrite them
+            const existingRes = await fetch(`${import.meta.env.VITE_API_URL}/api/student-skills`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const existingData = await existingRes.json();
+            const existingSkills = existingData.success ? existingData.skills : [];
+
+            // We keep existing skills unless they are part of the resume extraction but unchecked
+            const resumeSkillIds = skills.map(s => s.skill_id);
+            const mergedSkillsMap = new Map();
+            
+            // Add all existing skills that are NOT part of the resume extraction
+            existingSkills.forEach(skill => {
+                if (!resumeSkillIds.includes(skill.skill_id)) {
+                    mergedSkillsMap.set(skill.skill_id, skill);
+                }
+            });
+            
+            // Add all checked resume skills
+            selectedSkills.forEach(skill => {
+                mergedSkillsMap.set(skill.skill_id, skill);
+            });
+            
+            const finalSkillsToSave = Array.from(mergedSkillsMap.values());
 
             const response = await fetch(
                 `${import.meta.env.VITE_API_URL}/api/student-skills`,
@@ -122,7 +146,7 @@ function Skills() {
                         "Authorization": `Bearer ${token}`
                     },
                     body: JSON.stringify({
-                        skills: selectedSkills
+                        skills: finalSkillsToSave
                     })
                 }
             );
@@ -145,7 +169,7 @@ function Skills() {
     const fetchRecommendations = async () => {
         const token = localStorage.getItem("token");
         try {
-            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recommendations/saved`, {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recommendations`, {
                 headers: { "Authorization": `Bearer ${token}` }
             });
             const data = await response.json();
