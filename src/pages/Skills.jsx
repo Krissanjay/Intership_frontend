@@ -139,6 +139,51 @@ function Skills() {
                 <h1 className="page-title">My Skills</h1>
                 <p style={{ marginBottom: "20px" }}>Select the skills you have.</p>
 
+                <div className="item-card" style={{ maxWidth: "600px", marginBottom: "30px" }}>
+                    <h3>Add Custom Skill</h3>
+                    <div style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
+                        <input
+                            type="text"
+                            placeholder="Enter skill name..."
+                            className="form-input"
+                            style={{ margin: 0, flex: 1 }}
+                            id="customSkillInput"
+                        />
+                        <button 
+                            className="btn-primary" 
+                            onClick={async () => {
+                                const input = document.getElementById("customSkillInput");
+                                if (!input.value) return;
+                                
+                                const token = localStorage.getItem("token");
+                                try {
+                                    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/student-skills/add`, {
+                                        method: "POST",
+                                        headers: {
+                                            "Content-Type": "application/json",
+                                            "Authorization": `Bearer ${token}`
+                                        },
+                                        body: JSON.stringify({ skill_name: input.value, proficiency_level: "Beginner" })
+                                    });
+                                    if (res.ok) {
+                                        input.value = "";
+                                        fetchSkills();
+                                        fetchStudentSkills();
+                                        setMessage("Skill added successfully!");
+                                    } else {
+                                        const data = await res.json();
+                                        setMessage(data.message || "Failed to add skill");
+                                    }
+                                } catch (e) {
+                                    setMessage("Error adding skill");
+                                }
+                            }}
+                        >
+                            Add Skill
+                        </button>
+                    </div>
+                </div>
+
                 <div className="item-card" style={{ maxWidth: "600px" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
                         {skills.map(skill => {

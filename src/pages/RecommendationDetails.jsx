@@ -104,8 +104,62 @@ function RecommendationDetails() {
                     <h3 style={{ color: "#2b3674", fontSize: "18px" }}>Why this internship?</h3>
                     <p style={{ color: "#4a5568", lineHeight: "1.6" }}>{item.explanation}</p>
 
-                    <h3 style={{ color: "#2b3674", fontSize: "18px" }}>Skill Gap</h3>
-                    <p style={{ color: "#4a5568", lineHeight: "1.6" }}>{item.skill_gap}</p>
+                    <h3 style={{ color: "#2b3674", fontSize: "18px", marginTop: "20px" }}>Skill Gap</h3>
+                    {(() => {
+                        let missingSkillsList = item.missing_skills;
+                        if (!missingSkillsList && item.skill_gap && item.skill_gap.startsWith("Skills to improve: ")) {
+                            const skillsStr = item.skill_gap.replace("Skills to improve: ", "").replace(".", "");
+                            missingSkillsList = skillsStr.split(",").map(s => ({ skill_name: s.trim() })).filter(s => s.skill_name);
+                        }
+
+                        if (missingSkillsList && missingSkillsList.length > 0) {
+                            return (
+                                <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+                                    {missingSkillsList.map((skill, index) => (
+                                        <div key={skill.skill_id || index} style={{ display: "flex", alignItems: "center", background: "#f1f3f9", padding: "8px 12px", borderRadius: "20px" }}>
+                                            <span style={{ marginRight: "10px", color: "#4a5568" }}>{skill.skill_name}</span>
+                                            <button 
+                                                style={{ background: "#2b3674", color: "#fff", border: "none", borderRadius: "10px", padding: "4px 8px", cursor: "pointer", fontSize: "12px" }}
+                                                onClick={async (e) => {
+                                                    const btn = e.target;
+                                                    btn.disabled = true;
+                                                    btn.innerText = "Adding...";
+                                                    const token = localStorage.getItem("token");
+                                                    try {
+                                                        const payload = skill.skill_id ? { skill_id: skill.skill_id } : { skill_name: skill.skill_name };
+                                                        payload.proficiency_level = "Beginner";
+                                                        
+                                                        const res = await fetch(`${import.meta.env.VITE_API_URL}/api/student-skills/add`, {
+                                                            method: "POST",
+                                                            headers: {
+                                                                "Content-Type": "application/json",
+                                                                "Authorization": `Bearer ${token}`
+                                                            },
+                                                            body: JSON.stringify(payload)
+                                                        });
+                                                        if (res.ok) {
+                                                            btn.innerText = "Added ✓";
+                                                            btn.style.background = "green";
+                                                        } else {
+                                                            btn.innerText = "Error";
+                                                            btn.disabled = false;
+                                                        }
+                                                    } catch (err) {
+                                                        btn.innerText = "Error";
+                                                        btn.disabled = false;
+                                                    }
+                                                }}
+                                            >
+                                                Add Skill
+                                            </button>
+                                        </div>
+                                    ))}
+                                </div>
+                            );
+                        }
+                        
+                        return <p style={{ color: "#4a5568", lineHeight: "1.6" }}>{item.skill_gap}</p>;
+                    })()}
 
                     <div style={{ display: 'flex', gap: '15px', marginTop: '30px' }}>
                         <button className="btn-primary" onClick={() => applyInternship(item.internship_id)}>
