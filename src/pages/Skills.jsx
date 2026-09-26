@@ -15,16 +15,25 @@ function Skills() {
 
     const fetchSkills = async () => {
 
+        const token = localStorage.getItem("token");
+
         try {
 
             const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/skills`
+                `${import.meta.env.VITE_API_URL}/api/resume/extract-skills`,
+                {
+                    headers: {
+                        "Authorization": `Bearer ${token}`
+                    }
+                }
             );
 
             const data = await response.json();
 
             if (data.success) {
-                setSkills(data.skills);
+                setSkills(data.detected_skills || []);
+            } else {
+                setSkills([]);
             }
 
         } catch (error) {
