@@ -32,7 +32,16 @@ function Skills() {
             const data = await response.json();
 
             if (data.success) {
-                const extracted = data.detected_skills || [];
+                const rawExtracted = data.detected_skills || [];
+                
+                // Normalize for older backend that returns strings instead of objects
+                const extracted = rawExtracted.map((item, idx) => {
+                    if (typeof item === 'string') {
+                        return { skill_id: `temp_${idx}`, skill_name: item };
+                    }
+                    return item;
+                });
+                
                 setSkills(extracted);
                 
                 // Automatically select the extracted skills
@@ -164,6 +173,24 @@ function Skills() {
 
             <div className="student-content">
                 <h1 className="page-title">My Skills</h1>
+                
+                <h2 className="section-title">Saved Skills</h2>
+                {customSkills.length > 0 ? (
+                    <div className="item-card" style={{ marginBottom: "30px", maxWidth: "600px" }}>
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
+                            {customSkills.map((skill, index) => (
+                                <span key={index} style={{ background: '#4318FF', color: 'white', padding: '8px 15px', borderRadius: '20px', fontSize: '14px', fontWeight: '500' }}>
+                                    {skill.skill_name} ({skill.proficiency_level})
+                                </span>
+                            ))}
+                        </div>
+                    </div>
+                ) : (
+                    <div className="item-card" style={{ marginBottom: "30px", maxWidth: "600px" }}>
+                        <p>No skills saved yet.</p>
+                    </div>
+                )}
+
                 <p style={{ marginBottom: "20px" }}>Select the skills you have.</p>
 
                 <div className="item-card" style={{ maxWidth: "600px", marginBottom: "30px" }}>
