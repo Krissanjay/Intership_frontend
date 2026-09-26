@@ -7,6 +7,7 @@ function Skills() {
     const [skills, setSkills] = useState([]);
     const [selectedSkills, setSelectedSkills] = useState([]);
     const [message, setMessage] = useState("");
+    const [recommendations, setRecommendations] = useState([]);
 
     useEffect(() => {
         fetchSkills();
@@ -129,12 +130,30 @@ function Skills() {
             const data = await response.json();
 
             setMessage(data.message);
+            if (data.success) {
+                fetchRecommendations();
+            }
 
         } catch (error) {
 
             console.error(error);
             setMessage("Unable to save skills");
 
+        }
+    };
+
+    const fetchRecommendations = async () => {
+        const token = localStorage.getItem("token");
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/api/recommendations/saved`, {
+                headers: { "Authorization": `Bearer ${token}` }
+            });
+            const data = await response.json();
+            if (response.ok) {
+                setRecommendations(data.recommendations || []);
+            }
+        } catch (err) {
+            console.error("Failed to fetch recommendations:", err);
         }
     };
 
@@ -234,6 +253,22 @@ function Skills() {
                         <p className={`message ${message.includes("success") ? "success" : "error"}`} style={{ marginTop: "20px" }}>
                             {message}
                         </p>
+                    )}
+
+                    {recommendations.length > 0 && (
+                        <div style={{ marginTop: "40px" }}>
+                            <h2 className="section-title">Recommended Internships</h2>
+                            <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+                                {recommendations.map(rec => (
+                                    <div key={rec.internship_id} className="item-card" style={{ padding: "20px", background: "#f8f9fa", borderRadius: "10px", border: "1px solid #e0e5f2" }}>
+                                        <h3 style={{ margin: "0 0 10px 0", color: "#2b3674" }}>{rec.title}</h3>
+                                        <p style={{ margin: "0 0 5px 0", color: "#4318FF", fontWeight: "600" }}>{rec.company}</p>
+                                        <p style={{ margin: "0 0 10px 0", fontSize: "14px", color: "#a3aed0" }}>Match Score: {rec.match_score}%</p>
+                                        <a href={`/student/recommendations/${rec.internship_id}`} className="btn-primary" style={{ display: "inline-block", textDecoration: "none", marginTop: "10px" }}>View Details</a>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
                     )}
                 </div>
             </div>
