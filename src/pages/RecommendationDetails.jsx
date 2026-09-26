@@ -97,12 +97,39 @@ function RecommendationDetails() {
                         </div>
                     </div>
 
-                    <p><strong>Profile Match:</strong> {item.profile_match_score || "N/A"}%</p>
+                    <p><strong>Profile Match:</strong> {item.profile_match_score ?? "N/A"}%</p>
 
                     <hr />
 
                     <h3 style={{ color: "#2b3674", fontSize: "18px" }}>Why this internship?</h3>
-                    <p style={{ color: "#4a5568", lineHeight: "1.6" }}>{item.explanation}</p>
+                    {(() => {
+                        let explanationText = item.explanation || "";
+                        let matchedSkillsList = item.matched_skills;
+                        
+                        if (!matchedSkillsList && explanationText.includes("Matched skills: ")) {
+                            const parts = explanationText.split("Matched skills: ");
+                            explanationText = parts[0].trim();
+                            const skillsStr = parts[1].replace(".", "");
+                            matchedSkillsList = skillsStr.split(",").map(s => ({ skill_name: s.trim() })).filter(s => s.skill_name);
+                        }
+
+                        return (
+                            <>
+                                <p style={{ color: "#4a5568", lineHeight: "1.6" }}>{explanationText}</p>
+                                {matchedSkillsList && matchedSkillsList.length > 0 && (
+                                    <div style={{ marginTop: "15px" }}>
+                                        <div style={{ display: "flex", flexWrap: "wrap", gap: "10px", marginTop: "10px" }}>
+                                            {matchedSkillsList.map((skill, index) => (
+                                                <div key={index} style={{ background: "#e6fffa", color: "#2c7a7b", padding: "6px 12px", borderRadius: "15px", fontSize: "14px", fontWeight: "600", border: "1px solid #b2f5ea" }}>
+                                                    ✓ {skill.skill_name}
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                            </>
+                        );
+                    })()}
 
                     <h3 style={{ color: "#2b3674", fontSize: "18px", marginTop: "20px" }}>Skill Gap</h3>
                     {(() => {
