@@ -285,10 +285,10 @@ function Skills() {
                             <div style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
                                 {recommendations.map(rec => (
                                     <div key={rec.internship_id} className="item-card" style={{ padding: "20px", background: "#f8f9fa", borderRadius: "10px", border: "1px solid #e0e5f2" }}>
-                                        <h3 style={{ margin: "0 0 10px 0", color: "#2b3674" }}>{rec.title}</h3>
-                                        <p style={{ margin: "0 0 5px 0", color: "#4318FF", fontWeight: "600" }}>{rec.company}</p>
-                                        <p style={{ margin: "0 0 10px 0", fontSize: "14px", color: "#a3aed0" }}>Match Score: {rec.match_score}%</p>
-                                        <a href={`/student/recommendations/${rec.internship_id}`} className="btn-primary" style={{ display: "inline-block", textDecoration: "none", marginTop: "10px" }}>View Details</a>
+                                        <h3 style={{ margin: "0 0 10px 0", color: "#2b3674" }}>{rec.role}</h3>
+                                        <p style={{ margin: "0 0 5px 0", color: "#4318FF", fontWeight: "600" }}>{rec.company_name}</p>
+                                        <p style={{ margin: "0 0 10px 0", fontSize: "14px", color: "#a3aed0" }}>Match Score: {rec.overall_score}%</p>
+                                        <a href={`/recommendations/${rec.internship_id}`} className="btn-primary" style={{ display: "inline-block", textDecoration: "none", marginTop: "10px" }}>View Details</a>
                                     </div>
                                 ))}
                             </div>
