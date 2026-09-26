@@ -6,12 +6,10 @@ function Skills() {
 
     const [skills, setSkills] = useState([]);
     const [selectedSkills, setSelectedSkills] = useState([]);
-    const [customSkills, setCustomSkills] = useState([]);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
         fetchSkills();
-        fetchStudentSkills();
     }, []);
 
     const fetchSkills = async () => {
@@ -60,33 +58,6 @@ function Skills() {
                 });
             } else {
                 setSkills([]);
-            }
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    const fetchStudentSkills = async () => {
-
-        const token = localStorage.getItem("token");
-
-        try {
-
-            const response = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/student-skills`,
-                {
-                    headers: {
-                        "Authorization": `Bearer ${token}`
-                    }
-                }
-            );
-
-            const data = await response.json();
-
-            if (data.success) {
-                setSelectedSkills(data.skills);
-                setCustomSkills(data.skills);
             }
 
         } catch (error) {
@@ -173,24 +144,6 @@ function Skills() {
 
             <div className="student-content">
                 <h1 className="page-title">My Skills</h1>
-                
-                <h2 className="section-title">Saved Skills</h2>
-                {customSkills.length > 0 ? (
-                    <div className="item-card" style={{ marginBottom: "30px", maxWidth: "600px" }}>
-                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
-                            {customSkills.map((skill, index) => (
-                                <span key={index} style={{ background: '#4318FF', color: 'white', padding: '8px 15px', borderRadius: '20px', fontSize: '14px', fontWeight: '500' }}>
-                                    {skill.skill_name} ({skill.proficiency_level})
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                ) : (
-                    <div className="item-card" style={{ marginBottom: "30px", maxWidth: "600px" }}>
-                        <p>No skills saved yet.</p>
-                    </div>
-                )}
-
                 <p style={{ marginBottom: "20px" }}>Select the skills you have.</p>
 
                 <div className="item-card" style={{ maxWidth: "600px", marginBottom: "30px" }}>
@@ -222,7 +175,6 @@ function Skills() {
                                     if (res.ok) {
                                         input.value = "";
                                         await fetchSkills();
-                                        await fetchStudentSkills();
                                         setMessage("Skill added successfully!");
                                     } else {
                                         const data = await res.json();
