@@ -79,20 +79,44 @@ function Recommendations() {
 
             if (!response.ok) {
                 console.log("Backend response:", data);
-
-                setError(
-                    data.message ||
-                    data.msg ||
-                    `Server returned ${response.status}`
-                );
-
+                setError(data.message || data.msg || `Server returned ${response.status}`);
                 return;
             }
 
             setRecommendations(data.recommendations || []);
-
         } catch (err) {
             console.error("Recommendation error:", err);
+            setError("Could not connect to backend.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const refreshRecommendations = async () => {
+        const token = localStorage.getItem("token");
+        if (!token) return;
+        
+        setLoading(true);
+        try {
+            const response = await fetch(
+                `${import.meta.env.VITE_API_URL}/api/recommendations`,
+                {
+                    method: "GET",
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            const data = await response.json();
+            
+            if (response.ok) {
+                setRecommendations(data.recommendations || []);
+            } else {
+                setError(data.message || data.msg || `Server returned ${response.status}`);
+            }
+        } catch (err) {
+            console.error("Refresh error:", err);
             setError("Could not connect to backend.");
         } finally {
             setLoading(false);
@@ -132,14 +156,18 @@ function Recommendations() {
                 <h1 className="page-title">AI Internship Recommendations</h1>
                 <p>Internships ranked according to your profile, skills and resume.</p>
 
-                <div className="form-group" style={{ marginBottom: '30px' }}>
+                <div className="form-group" style={{ marginBottom: '30px', display: 'flex', gap: '15px', alignItems: 'center' }}>
                     <input
                         type="text"
                         className="form-input"
+                        style={{ flex: 1, margin: 0 }}
                         placeholder="Search internships by role, company, or location..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                     />
+                    <button className="btn-primary" onClick={refreshRecommendations}>
+                        Refresh Recommendations
+                    </button>
                 </div>
 
             {filteredRecommendations.length === 0 ? (
