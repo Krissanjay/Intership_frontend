@@ -240,16 +240,7 @@ function Skills() {
 
                 <div className="item-card" style={{ maxWidth: "600px" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                        {(() => {
-                            // Combine resume skills and currently saved skills so custom ones appear
-                            const allUniqueSkills = [...skills];
-                            customSkills.forEach(cs => {
-                                if (!allUniqueSkills.find(s => s.skill_id === cs.skill_id)) {
-                                    allUniqueSkills.push(cs);
-                                }
-                            });
-                            
-                            return allUniqueSkills.map(skill => {
+                        {skills.map(skill => {
                                 const selected = selectedSkills.find(
                                     item => item.skill_id === skill.skill_id
                                 );
@@ -280,8 +271,7 @@ function Skills() {
                                     )}
                                 </div>
                             );
-                            });
-                        })()}
+                        })}
                     </div>
 
                     <button className="btn-primary" onClick={saveSkills} style={{ marginTop: "30px" }}>
