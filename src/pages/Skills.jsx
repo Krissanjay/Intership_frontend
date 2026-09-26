@@ -32,7 +32,23 @@ function Skills() {
             const data = await response.json();
 
             if (data.success) {
-                setSkills(data.detected_skills || []);
+                const extracted = data.detected_skills || [];
+                setSkills(extracted);
+                
+                // Automatically select the extracted skills
+                setSelectedSkills(prev => {
+                    const updated = [...prev];
+                    extracted.forEach(skill => {
+                        if (!updated.find(s => s.skill_id === skill.skill_id)) {
+                            updated.push({
+                                skill_id: skill.skill_id,
+                                skill_name: skill.skill_name,
+                                proficiency_level: "Beginner"
+                            });
+                        }
+                    });
+                    return updated;
+                });
             } else {
                 setSkills([]);
             }
@@ -178,8 +194,8 @@ function Skills() {
                                     });
                                     if (res.ok) {
                                         input.value = "";
-                                        fetchSkills();
-                                        fetchStudentSkills();
+                                        await fetchSkills();
+                                        await fetchStudentSkills();
                                         setMessage("Skill added successfully!");
                                     } else {
                                         const data = await res.json();
