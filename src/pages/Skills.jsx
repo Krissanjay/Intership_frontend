@@ -6,6 +6,7 @@ function Skills() {
 
     const [skills, setSkills] = useState([]);
     const [selectedSkills, setSelectedSkills] = useState([]);
+    const [customSkills, setCustomSkills] = useState([]);
     const [message, setMessage] = useState("");
 
     useEffect(() => {
@@ -60,6 +61,7 @@ function Skills() {
 
             if (data.success) {
                 setSelectedSkills(data.skills);
+                setCustomSkills(data.skills);
             }
 
         } catch (error) {
@@ -198,9 +200,9 @@ function Skills() {
                         {(() => {
                             // Combine resume skills and currently saved skills so custom ones appear
                             const allUniqueSkills = [...skills];
-                            selectedSkills.forEach(ss => {
-                                if (!allUniqueSkills.find(s => s.skill_id === ss.skill_id)) {
-                                    allUniqueSkills.push(ss);
+                            customSkills.forEach(cs => {
+                                if (!allUniqueSkills.find(s => s.skill_id === cs.skill_id)) {
+                                    allUniqueSkills.push(cs);
                                 }
                             });
                             
