@@ -175,7 +175,7 @@ function Resume() {
                         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                             {skills.map((skill, index) => (
                                 <span key={index} style={{ background: '#4318FF', color: 'white', padding: '8px 15px', borderRadius: '20px', fontSize: '14px', fontWeight: '500' }}>
-                                    {skill}
+                                    {skill.skill_name}
                                 </span>
                             ))}
                         </div>
