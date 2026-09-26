@@ -235,7 +235,8 @@ function Skills() {
                                     )}
                                 </div>
                             );
-                        })}
+                            });
+                        })()}
                     </div>
 
                     <button className="btn-primary" onClick={saveSkills} style={{ marginTop: "30px" }}>
