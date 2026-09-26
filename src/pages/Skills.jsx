@@ -195,14 +195,22 @@ function Skills() {
 
                 <div className="item-card" style={{ maxWidth: "600px" }}>
                     <div style={{ display: "flex", flexDirection: "column", gap: "15px" }}>
-                        {skills.map(skill => {
+                        {(() => {
+                            // Combine resume skills and currently saved skills so custom ones appear
+                            const allUniqueSkills = [...skills];
+                            selectedSkills.forEach(ss => {
+                                if (!allUniqueSkills.find(s => s.skill_id === ss.skill_id)) {
+                                    allUniqueSkills.push(ss);
+                                }
+                            });
+                            
+                            return allUniqueSkills.map(skill => {
+                                const selected = selectedSkills.find(
+                                    item => item.skill_id === skill.skill_id
+                                );
 
-                const selected = selectedSkills.find(
-                    item => item.skill_id === skill.skill_id
-                );
-
-                            return (
-                                <div key={skill.skill_id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px", background: "#f8f9fa", borderRadius: "10px", border: "1px solid #e0e5f2" }}>
+                                return (
+                                    <div key={skill.skill_id} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "10px", background: "#f8f9fa", borderRadius: "10px", border: "1px solid #e0e5f2" }}>
                                     <label style={{ display: "flex", alignItems: "center", gap: "10px", cursor: "pointer", fontWeight: "500", color: "#2b3674" }}>
                                         <input
                                             type="checkbox"
