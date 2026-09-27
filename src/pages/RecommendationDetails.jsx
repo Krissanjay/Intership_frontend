@@ -78,6 +78,17 @@ function RecommendationDetails() {
                     <p className="app-detail">📍 {item.location}</p>
                     <p className="app-detail">⏱️ Duration: {item.duration}</p>
                     <p className="app-detail">💰 Stipend: ₹{item.stipend}</p>
+                    {item.application_deadline && <p className="app-detail">📅 Deadline: {new Date(item.application_deadline).toLocaleDateString()}</p>}
+                    {item.minimum_cgpa && <p className="app-detail">🎓 Min CGPA: {item.minimum_cgpa}</p>}
+                    {item.eligible_degree && <p className="app-detail">📜 Degrees: {item.eligible_degree}</p>}
+                    {item.eligible_branch && <p className="app-detail">🔬 Branches: {item.eligible_branch}</p>}
+                    
+                    {item.description && (
+                        <div style={{ marginTop: '15px' }}>
+                            <h4 style={{ color: "#2b3674", marginBottom: '5px' }}>Description</h4>
+                            <p style={{ color: "#4a5568", lineHeight: "1.5" }}>{item.description}</p>
+                        </div>
+                    )}
 
                     <hr />
 

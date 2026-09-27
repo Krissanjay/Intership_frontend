@@ -307,6 +307,10 @@ function StudentNavbar() {
                     Resume
                 </NavLink>
 
+                <NavLink to="/skills" className={({ isActive }) => isActive ? "active" : ""}>
+                    Skills
+                </NavLink>
+
                 <button onClick={logout}>
                     Logout
                 </button>
